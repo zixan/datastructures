@@ -32,12 +32,13 @@ class BinaryTree:
                 prev.right = n
         return self
 
-    def inorder_traversal(self, n=self.root):
-        if n == None:
-            print self
-        inorder_traversal(n.left)
-        print n.data
-        inorder_traversal(n.right)
+    def inorder_traversal(self, node):
+        #data = []
+        if node is None:
+            return []  
+        return [node.data]+self.inorder_traversal(node.left)
+        #data.append(node.data)
+        return [node.data]+self.inorder_traversal(node.right)
 
 
 
@@ -72,6 +73,9 @@ class TestBinaryTree(unittest.TestCase):
         self.assertEqual(right_subtree.left.data, 6)
         self.assertEqual(right_subtree.right.data, 8)
 
+    def test_inorder_traversal_with_empty_list(self):
+        self.assertEqual(self.BT.inorder_traversal(self.BT.root), [])
+
     def test_inorder_traversal(self):
         self.BT.insert(5)
         self.BT.insert(3)
@@ -83,7 +87,7 @@ class TestBinaryTree(unittest.TestCase):
         self.BT.insert(6)
         self.BT.insert(8)
 
-        self.assertEqual(self.BT.inorder_traversal(), [2,3,4,5,6,7,8])
+        self.assertEqual(self.BT.inorder_traversal(self.BT.root), [2,3,4,5,6,7,8])
 
 if __name__ == '__main__':
     unittest.main()
